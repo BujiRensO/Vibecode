@@ -122,35 +122,66 @@
 				gap:16px;
 				align-items:stretch;
 				transition:transform 0.5s ease-out;
+				animation: slideCarousel 30s linear infinite;
 			}
-			.carousel-track .card{flex:0 0 260px;min-width:220px}
+			.services-carousel:hover .carousel-track,
+			.services-carousel:focus-within .carousel-track {
+				animation-play-state: paused;
+			}
+			@keyframes slideCarousel {
+				from {
+					transform: translateX(0);
+				}
+				to {
+					transform: translateX(calc(-276px * 6)); /* Move by width of all original cards */
+				}
+			}
+			.carousel-track .card{flex:0 0 300px;min-width:260px}
 			.carousel-arrow{
 				position:absolute;
 				top:50%;
 				transform:translateY(-50%);
-				width:36px;
-				height:36px;
+				width:40px;
+				height:40px;
 				border-radius:50%;
 				background:var(--accent);
 				color:white;
 				border:none;
 				cursor:pointer;
-				font-size:18px;
+				font-size:24px;
 				display:flex;
 				align-items:center;
 				justify-content:center;
-				opacity:0.85;
-				transition:opacity 0.3s, transform 0.3s;
+				opacity:0.9;
+				transition:all 0.3s ease;
 				z-index:5;
+				box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 			}
 			.carousel-arrow:hover{
 				opacity:1;
 				transform:translateY(-50%) scale(1.1);
+				box-shadow: 0 4px 12px rgba(0,0,0,0.2);
 			}
-			.carousel-arrow.prev{left:0}
-			.carousel-arrow.next{right:0}
-			.card img.svc-img{width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0}
-			.card{align-items:center}
+			.carousel-arrow:active {
+				transform:translateY(-50%) scale(0.95);
+			}
+			.carousel-arrow.prev{left:8px}
+			.carousel-arrow.next{right:8px}
+			.card img.svc-img{
+				width:100%;
+				height:160px;
+				border-radius:8px 8px 0 0;
+				object-fit:cover;
+				margin:-16px -16px 16px -16px;
+			}
+			.card{
+				flex-direction:column;
+				align-items:stretch;
+				padding-top:0;
+			}
+			.card > div:not(.icon) {
+				padding:0 16px;
+			}
 			/* Respect users who prefer reduced motion */
 			@media (prefers-reduced-motion:reduce){
 				.carousel-track{
@@ -240,23 +271,7 @@
 				<h2 id="about-heading">About Us</h2>
 				<p>At Golden Care Day Center our mission is to enrich the lives of adults and seniors through compassionate support, meaningful activities, and respectful care. We value dignity, community, and individualized attention — creating a warm environment where families feel confident and participants feel engaged and valued.</p>
 
-				<div style="margin-top:12px">
-					<h3 style="margin:0 0 10px">Meet Our Team</h3>
-					<div class="team">
-						<div class="member">
-							<img src="https://via.placeholder.com/150" alt="Profile of Maria - Director">
-							<small>Maria Gomez<br><span style="font-weight:400;color:var(--muted)">Center Director</span></small>
-						</div>
-						<div class="member">
-							<img src="https://via.placeholder.com/150" alt="Profile of James - Nurse">
-							<small>James Park<br><span style="font-weight:400;color:var(--muted)">Lead Care Nurse</span></small>
-						</div>
-						<div class="member">
-							<img src="https://via.placeholder.com/150" alt="Profile of Linda - Activities Coordinator">
-							<small>Linda Taylor<br><span style="font-weight:400;color:var(--muted)">Activities Coordinator</span></small>
-						</div>
-					</div>
-				</div>
+				
 			</section>
 
 			<section id="services" aria-labelledby="services-heading">
@@ -267,42 +282,66 @@
 					<button class="carousel-arrow next" aria-label="Next services">→</button>
 					<div class="carousel-track">
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Health" alt="Health Monitoring">
+							<img class="svc-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Blood_pressure_monitoring.jpg" alt="Health Monitoring">
 							
 							<div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div>
 						</div>
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Meals" alt="Nutritious Meals">
+							<img class="svc-img" src="https://media.istockphoto.com/id/1457433817/photo/group-of-healthy-food-for-flexitarian-diet.jpg?s=612x612&w=0&k=20&c=v48RE0ZNWpMZOlSp13KdF1yFDmidorO2pZTu2Idmd3M=" alt="Nutritious Meals">
 							
 							<div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div>
 						</div>
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Transport" alt="Transportation">
+							<img class="svc-img" src="https://www.shutterstock.com/image-illustration/image-bus-on-road-600nw-2568680639.jpg" alt="Transportation">
 							
 							<div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div>
 						</div>
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Arts" alt="Recreational Activities">
-							<div class="icon">🎨</div>
+							<img class="svc-img" src="https://bucknercalderwoods.org/wp-content/uploads/2022/07/12-Fun-Recreational-Activities-for-Senior-Citizens.jpeg" alt="Recreational Activities">
+							
 							<div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div>
 						</div>
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Medication" alt="Medication Assistance">
+							<img class="svc-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs5kkyJrxIO4J8B9NFc_nvz0bWFObvXKzQMg&s" alt="Medication Assistance">
 							
 							<div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div>
 						</div>
 						<div class="card">
-							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Exercise" alt="Gentle Exercise Programs">
+							<img class="svc-img" src="https://static.nike.com/a/images/f_auto/dpr_3.0,cs_srgb/w_403,c_limit/add7a007-8989-4e95-ad27-eb9437b8690c/the-top-3-yoga-poses-to-get-stronger-according-to-experts.jpg" alt="Gentle Exercise Programs">
 							
 							<div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div>
 						</div>
 						<!-- duplicate set for seamless loop -->
-						<div class="card"><div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div></div>
-						<div class="card"><div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div></div>
-						<div class="card"><div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div></div>
-						<div class="card"><div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div></div>
-						<div class="card"><div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div></div>
-						<div class="card"><div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div></div>
+<div class="card">
+							<img class="svc-img" src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Blood_pressure_monitoring.jpg" alt="Health Monitoring">
+							
+							<div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://media.istockphoto.com/id/1457433817/photo/group-of-healthy-food-for-flexitarian-diet.jpg?s=612x612&w=0&k=20&c=v48RE0ZNWpMZOlSp13KdF1yFDmidorO2pZTu2Idmd3M=" alt="Nutritious Meals">
+							
+							<div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://www.shutterstock.com/image-illustration/image-bus-on-road-600nw-2568680639.jpg" alt="Transportation">
+							
+							<div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://bucknercalderwoods.org/wp-content/uploads/2022/07/12-Fun-Recreational-Activities-for-Senior-Citizens.jpeg" alt="Recreational Activities">
+							
+							<div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs5kkyJrxIO4J8B9NFc_nvz0bWFObvXKzQMg&s" alt="Medication Assistance">
+							
+							<div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://static.nike.com/a/images/f_auto/dpr_3.0,cs_srgb/w_403,c_limit/add7a007-8989-4e95-ad27-eb9437b8690c/the-top-3-yoga-poses-to-get-stronger-according-to-experts.jpg" alt="Gentle Exercise Programs">
+							
+							<div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -384,18 +423,26 @@
 		<script>
 			// Services carousel navigation
 			document.addEventListener('DOMContentLoaded', () => {
-				const track = document.querySelector('.carousel-track');
+				const carousel = document.querySelector('.services-carousel');
+				const track = carousel.querySelector('.carousel-track');
 				const cards = track.querySelectorAll('.card');
 				const cardWidth = 276; // card width + gap
 				let position = 0;
 				
-				document.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
+				const stopAutoScroll = () => {
+					track.style.animation = 'none';
+					track.style.transform = `translateX(${position}px)`;
+				};
+				
+				carousel.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
+					stopAutoScroll();
 					position += cardWidth;
 					if (position > 0) position = -(cardWidth * (cards.length / 2 - 1));
 					track.style.transform = `translateX(${position}px)`;
 				});
 				
-				document.querySelector('.carousel-arrow.next').addEventListener('click', () => {
+				carousel.querySelector('.carousel-arrow.next').addEventListener('click', () => {
+					stopAutoScroll();
 					position -= cardWidth;
 					if (position < -(cardWidth * (cards.length / 2))) position = 0;
 					track.style.transform = `translateX(${position}px)`;
