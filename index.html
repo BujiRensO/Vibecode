@@ -6,28 +6,15 @@
 		<title>Golden Care Day Center</title>
 		<style>
 			/* Color palette */
-					:root{
-						--soft-blue:#e6f7ff;
-						--cream:#fff7e6;
-						--pastel-green:#e6fff0;
-						--accent:#7fb3c9;
-						--text:#2b3a3f;
-						--muted:#6b7b7f;
-						--card-bg: #ffffff;
-						--header-bg-rgba: 255,255,255; /* used for header translucency */
-					}
-
-					/* Dark theme overrides applied when <body> has .dark */
-					body.dark{
-						--soft-blue:#071529;      /* deep navy */
-						--cream:#071722;         /* near-black/teal tone */
-						--pastel-green:#072a22;  /* deep green accent */
-						--accent:#5aa0a8;        /* softened teal accent */
-						--text:#e6f7ff;          /* light text */
-						--muted:#a9c2c6;         /* muted lighter */
-						--card-bg:#06121a;       /* card background in dark */
-						--header-bg-rgba: 6,12,18;
-					}
+			:root{
+				--soft-blue:#e6f7ff;
+				--cream:#fff7e6;
+				--pastel-green:#e6fff0;
+				--accent:#7fb3c9;
+				--text:#2b3a3f;
+				--muted:#6b7b7f;
+				--card-bg: #ffffff;
+			}
 
 			/* Global reset and base */
 			*{box-sizing:border-box}
@@ -43,14 +30,14 @@
 			}
 
 			/* Header / nav */
-					header{
-						position:sticky;
-						top:0;
-						z-index:1000;
-						background:rgba(var(--header-bg-rgba),0.85);
-						backdrop-filter: blur(6px);
-						box-shadow:0 2px 6px rgba(35,50,60,0.06);
-					}
+			header{
+				position:sticky;
+				top:0;
+				z-index:1000;
+				background:rgba(255,255,255,0.85);
+				backdrop-filter: blur(6px);
+				box-shadow:0 2px 6px rgba(35,50,60,0.06);
+			}
 			.nav-wrap{
 				max-width:1100px;
 				margin:0 auto;
@@ -65,16 +52,9 @@
 				letter-spacing:0.4px;
 				font-size:1.15rem;
 			}
-					nav ul{list-style:none;margin:0;padding:0;display:flex;gap:14px;align-items:center}
-					nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .18s}
-					nav a:hover{background:var(--pastel-green)}
-
-					/* Theme toggle button */
-					.theme-toggle{
-						appearance:none;border:0;background:transparent;color:var(--accent);cursor:pointer;padding:8px 10px;border-radius:8px;font-size:1rem;display:inline-flex;align-items:center;gap:8px;transition:transform .12s, background .12s;
-					}
-					.theme-toggle:hover{transform:translateY(-2px);background:rgba(127,179,201,0.06)}
-					.theme-toggle .label{font-weight:600;color:var(--text);font-size:.95rem}
+			nav ul{list-style:none;margin:0;padding:0;display:flex;gap:14px;align-items:center}
+			nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .18s}
+			nav a:hover{background:var(--pastel-green)}
 
 			/* Hero */
 			.hero{
@@ -89,7 +69,7 @@
 				margin-right:calc(50% - 50vw);
 				background-image: url('https://www.rtor.org/wp-content/uploads/2017/06/iStock-532969250-1-1024x683.jpg');
 				background-size:cover;
-				background-position:center center;
+				background-position:center center;s
 				background-repeat:no-repeat;
 				/* subtle parallax on supporting browsers; mobile browsers may ignore fixed */
 				background-attachment:fixed;
@@ -130,6 +110,53 @@
 
 			/* Services */
 			.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+			/* Carousel styles for services */
+			.services-carousel{
+				position:relative;
+				overflow:hidden;
+				margin-top:12px;
+				padding:0 40px;
+			}
+			.carousel-track{
+				display:flex;
+				gap:16px;
+				align-items:stretch;
+				transition:transform 0.5s ease-out;
+			}
+			.carousel-track .card{flex:0 0 260px;min-width:220px}
+			.carousel-arrow{
+				position:absolute;
+				top:50%;
+				transform:translateY(-50%);
+				width:36px;
+				height:36px;
+				border-radius:50%;
+				background:var(--accent);
+				color:white;
+				border:none;
+				cursor:pointer;
+				font-size:18px;
+				display:flex;
+				align-items:center;
+				justify-content:center;
+				opacity:0.85;
+				transition:opacity 0.3s, transform 0.3s;
+				z-index:5;
+			}
+			.carousel-arrow:hover{
+				opacity:1;
+				transform:translateY(-50%) scale(1.1);
+			}
+			.carousel-arrow.prev{left:0}
+			.carousel-arrow.next{right:0}
+			.card img.svc-img{width:72px;height:72px;border-radius:8px;object-fit:cover;flex-shrink:0}
+			.card{align-items:center}
+			/* Respect users who prefer reduced motion */
+			@media (prefers-reduced-motion:reduce){
+				.carousel-track{
+					transition:none;
+				}
+			}
 			.card{background:var(--card-bg);padding:16px;border-radius:12px;box-shadow:0 6px 12px rgba(35,50,60,0.04);display:flex;gap:12px;align-items:flex-start}
 			.icon{font-size:1.5rem}
 			.card h3{margin:0;font-size:1rem}
@@ -189,11 +216,6 @@
 						<li><a href="#contact">Contact</a></li>
 					</ul>
 				</nav>
-				<!-- Theme toggle -->
-				<button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">
-					<span class="icon">🌙</span>
-					<span class="label">Dark</span>
-				</button>
 			</div>
 		</header>
 
@@ -239,13 +261,49 @@
 
 			<section id="services" aria-labelledby="services-heading">
 				<h2 id="services-heading">Our Services</h2>
-				<div class="services-grid">
-					<div class="card"><div class="icon">👩‍⚕️</div><div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div></div>
-					<div class="card"><div class="icon">🍽️</div><div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div></div>
-					<div class="card"><div class="icon">🚐</div><div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div></div>
-					<div class="card"><div class="icon">🎨</div><div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div></div>
-					<div class="card"><div class="icon">💊</div><div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div></div>
-					<div class="card"><div class="icon">🧘</div><div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div></div>
+				<!-- CSS carousel: duplicated items for smooth infinite scroll -->
+				<div class="services-carousel" aria-label="Services carousel">
+					<button class="carousel-arrow prev" aria-label="Previous services">←</button>
+					<button class="carousel-arrow next" aria-label="Next services">→</button>
+					<div class="carousel-track">
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Health" alt="Health Monitoring">
+							<div class="icon">👩‍⚕️</div>
+							<div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Meals" alt="Nutritious Meals">
+							<div class="icon">🍽️</div>
+							<div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Transport" alt="Transportation">
+							<div class="icon">🚐</div>
+							<div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Arts" alt="Recreational Activities">
+							<div class="icon">🎨</div>
+							<div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Medication" alt="Medication Assistance">
+							<div class="icon">💊</div>
+							<div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div>
+						</div>
+						<div class="card">
+							<img class="svc-img" src="https://via.placeholder.com/120x120?text=Exercise" alt="Gentle Exercise Programs">
+							<div class="icon">🧘</div>
+							<div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div>
+						</div>
+						<!-- duplicate set for seamless loop -->
+						<div class="card"><div class="icon">�👩‍⚕️</div><div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div></div>
+						<div class="card"><div class="icon">🍽️</div><div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div></div>
+						<div class="card"><div class="icon">🚐</div><div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div></div>
+						<div class="card"><div class="icon">🎨</div><div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div></div>
+						<div class="card"><div class="icon">💊</div><div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div></div>
+						<div class="card"><div class="icon">🧘</div><div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div></div>
+					</div>
 				</div>
 			</section>
 
@@ -323,47 +381,27 @@
 				</div>
 			</div>
 		</footer>
-
 		<script>
-		// Theme toggle: persist choice in localStorage and respect system preference
-		(function(){
-			const toggle = document.getElementById('theme-toggle');
-			const bodyEl = document.body;
-			if(!toggle) return;
-			const stored = localStorage.getItem('theme');
-			const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-			const initial = stored || (prefersDark ? 'dark' : 'light');
-			function applyTheme(t){
-				if(t === 'dark'){
-					bodyEl.classList.add('dark');
-					toggle.setAttribute('aria-pressed','true');
-					toggle.querySelector('.icon').textContent = '☀️';
-					toggle.querySelector('.label').textContent = 'Light';
-				}else{
-					bodyEl.classList.remove('dark');
-					toggle.setAttribute('aria-pressed','false');
-					toggle.querySelector('.icon').textContent = '🌙';
-					toggle.querySelector('.label').textContent = 'Dark';
-				}
-				localStorage.setItem('theme', t);
-			}
-			applyTheme(initial);
-			toggle.addEventListener('click', function(){
-				const isDark = bodyEl.classList.contains('dark');
-				applyTheme(isDark ? 'light' : 'dark');
-			});
-			// If user has not explicitly set preference, respond to system changes
-			try{
-				const mq = window.matchMedia('(prefers-color-scheme: dark)');
-				mq.addEventListener('change', e => {
-					if(!localStorage.getItem('theme')){
-						applyTheme(e.matches ? 'dark' : 'light');
-					}
+			// Services carousel navigation
+			document.addEventListener('DOMContentLoaded', () => {
+				const track = document.querySelector('.carousel-track');
+				const cards = track.querySelectorAll('.card');
+				const cardWidth = 276; // card width + gap
+				let position = 0;
+				
+				document.querySelector('.carousel-arrow.prev').addEventListener('click', () => {
+					position += cardWidth;
+					if (position > 0) position = -(cardWidth * (cards.length / 2 - 1));
+					track.style.transform = `translateX(${position}px)`;
 				});
-			}catch(err){/* ignore on older browsers */}
-		})();
+				
+				document.querySelector('.carousel-arrow.next').addEventListener('click', () => {
+					position -= cardWidth;
+					if (position < -(cardWidth * (cards.length / 2))) position = 0;
+					track.style.transform = `translateX(${position}px)`;
+				});
+			});
 		</script>
-
 	</body>
 </html>
 
