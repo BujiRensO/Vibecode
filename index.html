@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Golden Care Day Center</title>
+		<style>
+			/* Color palette */
+					:root{
+						--soft-blue:#e6f7ff;
+						--cream:#fff7e6;
+						--pastel-green:#e6fff0;
+						--accent:#7fb3c9;
+						--text:#2b3a3f;
+						--muted:#6b7b7f;
+						--card-bg: #ffffff;
+						--header-bg-rgba: 255,255,255; /* used for header translucency */
+					}
+
+					/* Dark theme overrides applied when <body> has .dark */
+					body.dark{
+						--soft-blue:#071529;      /* deep navy */
+						--cream:#071722;         /* near-black/teal tone */
+						--pastel-green:#072a22;  /* deep green accent */
+						--accent:#5aa0a8;        /* softened teal accent */
+						--text:#e6f7ff;          /* light text */
+						--muted:#a9c2c6;         /* muted lighter */
+						--card-bg:#06121a;       /* card background in dark */
+						--header-bg-rgba: 6,12,18;
+					}
+
+			/* Global reset and base */
+			*{box-sizing:border-box}
+			html{scroll-behavior:smooth}
+			body{
+				margin:0;
+				font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+				color:var(--text);
+				background: linear-gradient(180deg,var(--soft-blue),var(--cream));
+				-webkit-font-smoothing:antialiased;
+				-moz-osx-font-smoothing:grayscale;
+				line-height:1.5;
+			}
+
+			/* Header / nav */
+					header{
+						position:sticky;
+						top:0;
+						z-index:1000;
+						background:rgba(var(--header-bg-rgba),0.85);
+						backdrop-filter: blur(6px);
+						box-shadow:0 2px 6px rgba(35,50,60,0.06);
+					}
+			.nav-wrap{
+				max-width:1100px;
+				margin:0 auto;
+				display:flex;
+				align-items:center;
+				justify-content:space-between;
+				padding:12px 20px;
+			}
+			.logo{
+				font-weight:700;
+				color:var(--accent);
+				letter-spacing:0.4px;
+				font-size:1.15rem;
+			}
+					nav ul{list-style:none;margin:0;padding:0;display:flex;gap:14px;align-items:center}
+					nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;transition:all .18s}
+					nav a:hover{background:var(--pastel-green)}
+
+					/* Theme toggle button */
+					.theme-toggle{
+						appearance:none;border:0;background:transparent;color:var(--accent);cursor:pointer;padding:8px 10px;border-radius:8px;font-size:1rem;display:inline-flex;align-items:center;gap:8px;transition:transform .12s, background .12s;
+					}
+					.theme-toggle:hover{transform:translateY(-2px);background:rgba(127,179,201,0.06)}
+					.theme-toggle .label{font-weight:600;color:var(--text);font-size:.95rem}
+
+			/* Hero */
+			.hero{
+				position:relative;
+				display:flex;
+				align-items:center;
+				min-height:100vh;
+				padding:80px 20px 40px;
+				/* make the hero full-bleed even when inside a constrained container */
+				width:100vw;
+				margin-left:calc(50% - 50vw);
+				margin-right:calc(50% - 50vw);
+				background-image: url('https://www.rtor.org/wp-content/uploads/2017/06/iStock-532969250-1-1024x683.jpg');
+				background-size:cover;
+				background-position:center center;
+				background-repeat:no-repeat;
+				/* subtle parallax on supporting browsers; mobile browsers may ignore fixed */
+				background-attachment:fixed;
+				overflow:hidden;
+				border-radius:0; /* override global section rounding for fullscreen hero */
+			}
+			/* layered soft overlays for warmth and legibility */
+			.hero::before{
+				content:"";
+				position:absolute;
+				inset:0;
+				background: linear-gradient(135deg, rgba(255,255,255,0.55), rgba(230,255,240,0.25)), radial-gradient(circle at 10% 20%, rgba(127,179,201,0.12), transparent 15%), radial-gradient(circle at 90% 80%, rgba(255,230,180,0.10), transparent 25%);
+				pointer-events:none;
+				z-index:1;
+				backdrop-filter: blur(2px) saturate(1.05);
+			}
+			.hero-inner{max-width:1100px;margin:0 auto;display:flex;gap:30px;align-items:center;flex-wrap:wrap;position:relative;z-index:2}
+			.hero-copy{flex:1;min-width:280px;background:rgba(255,255,255,0.86);padding:28px;border-radius:14px;box-shadow:0 6px 18px rgba(40,60,80,0.06)}
+			.hero h1{margin:0 0 12px;font-size:1.8rem;color:var(--text)}
+			.hero p.lead{margin:0 0 18px;color:var(--muted)}
+			.hero .cta{display:flex;gap:12px;flex-wrap:wrap}
+			.btn{display:inline-block;padding:10px 16px;border-radius:10px;border:0;cursor:pointer;font-weight:600;text-decoration:none}
+			.btn-primary{background:var(--accent);color:white;box-shadow:0 6px 12px rgba(127,179,201,0.18)}
+			.btn-outline{background:transparent;color:var(--accent);border:1.5px solid rgba(127,179,201,0.18)}
+			.btn:hover{transform:translateY(-2px)}
+
+			/* Main layout */
+			main{max-width:1100px;margin:30px auto;padding:0 20px}
+			section{margin:30px 0;padding:22px;background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.9));border-radius:12px}
+			h2{margin:0 0 12px;font-size:1.35rem;color:var(--text)}
+			p{margin:0 0 12px;color:var(--muted)}
+
+			/* About / team */
+			.team{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px}
+			.member{display:flex;flex-direction:column;align-items:center;width:120px;text-align:center}
+			.member img{width:96px;height:96px;border-radius:50%;object-fit:cover;border:4px solid var(--cream);box-shadow:0 8px 18px rgba(35,50,60,0.08)}
+			.member small{display:block;margin-top:8px;color:var(--text);font-weight:600}
+
+			/* Services */
+			.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px}
+			.card{background:var(--card-bg);padding:16px;border-radius:12px;box-shadow:0 6px 12px rgba(35,50,60,0.04);display:flex;gap:12px;align-items:flex-start}
+			.icon{font-size:1.5rem}
+			.card h3{margin:0;font-size:1rem}
+			.card p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+
+			/* Activities list */
+			.activities-list{display:flex;flex-direction:column;gap:8px}
+			.activities-list li{background:var(--pastel-green);padding:8px 12px;border-radius:10px;display:inline-block;margin:6px 6px 6px 0}
+
+			/* Gallery */
+			.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+			.gallery-grid img{width:100%;height:120px;object-fit:cover;border-radius:10px}
+
+			/* Testimonials */
+			.testimonials{display:flex;gap:16px;flex-wrap:wrap}
+			.quote{flex:1;min-width:220px;background:linear-gradient(180deg,var(--cream),#fff);padding:16px;border-radius:12px;border-left:4px solid var(--accent);box-shadow:0 6px 14px rgba(35,50,60,0.04)}
+			.quote p{font-style:italic;margin:0;color:var(--text)}
+			.quote small{display:block;margin-top:8px;color:var(--muted)}
+
+			/* Contact */
+			.contact-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
+			.contact-info p{margin:6px 0}
+			form{display:flex;flex-direction:column;gap:10px}
+			input,textarea{padding:10px;border-radius:8px;border:1px solid #e2e8ea}
+			textarea{min-height:100px;resize:vertical}
+			.map{border-radius:10px;overflow:hidden;height:100%}
+
+			/* Footer */
+			footer{padding:18px 20px;margin-top:22px;background:transparent;text-align:center;color:var(--muted)}
+			.socials a{margin:0 8px;color:var(--accent);text-decoration:none}
+
+			/* Responsive tweaks */
+			@media (max-width:840px){
+				.hero h1{font-size:1.4rem}
+				.contact-grid{grid-template-columns:1fr}
+			}
+			@media (max-width:520px){
+				nav ul{gap:8px}
+				.nav-wrap{padding:10px}
+			}
+
+			/* small accessibility focus */
+			a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(127,179,201,0.25);outline-offset:2px}
+		</style>
+	</head>
+	<body>
+		<header>
+			<div class="nav-wrap">
+				<div class="logo">Golden Care Day Center</div>
+				<nav aria-label="Primary navigation">
+					<ul>
+						<li><a href="#home">Home</a></li>
+						<li><a href="#about">About</a></li>
+						<li><a href="#services">Services</a></li>
+						<li><a href="#activities">Activities</a></li>
+						<li><a href="#gallery">Gallery</a></li>
+						<li><a href="#contact">Contact</a></li>
+					</ul>
+				</nav>
+				<!-- Theme toggle -->
+				<button id="theme-toggle" class="theme-toggle" aria-pressed="false" aria-label="Toggle dark mode">
+					<span class="icon">🌙</span>
+					<span class="label">Dark</span>
+				</button>
+			</div>
+		</header>
+
+		<main>
+			<section id="home" class="hero" aria-labelledby="hero-heading">
+				<div class="hero-inner">
+					<div class="hero-copy">
+						<h1 id="hero-heading">Compassionate Care for Your Loved Ones, Every Day.</h1>
+						<p class="lead">We provide a safe, engaging, and caring environment for seniors and adults with special needs.</p>
+						<div class="cta">
+							<a class="btn btn-primary" href="#about">Learn More</a>
+							<a class="btn btn-outline" href="#contact">Schedule a Visit</a>
+						</div>
+					</div>
+					<div class="hero-media" style="flex:1;min-width:220px;">
+						<!-- decorative area, could be used for additional imagery or contact card -->
+					</div>
+				</div>
+			</section>
+
+			<section id="about" aria-labelledby="about-heading">
+				<h2 id="about-heading">About Us</h2>
+				<p>At Golden Care Day Center our mission is to enrich the lives of adults and seniors through compassionate support, meaningful activities, and respectful care. We value dignity, community, and individualized attention — creating a warm environment where families feel confident and participants feel engaged and valued.</p>
+
+				<div style="margin-top:12px">
+					<h3 style="margin:0 0 10px">Meet Our Team</h3>
+					<div class="team">
+						<div class="member">
+							<img src="https://via.placeholder.com/150" alt="Profile of Maria - Director">
+							<small>Maria Gomez<br><span style="font-weight:400;color:var(--muted)">Center Director</span></small>
+						</div>
+						<div class="member">
+							<img src="https://via.placeholder.com/150" alt="Profile of James - Nurse">
+							<small>James Park<br><span style="font-weight:400;color:var(--muted)">Lead Care Nurse</span></small>
+						</div>
+						<div class="member">
+							<img src="https://via.placeholder.com/150" alt="Profile of Linda - Activities Coordinator">
+							<small>Linda Taylor<br><span style="font-weight:400;color:var(--muted)">Activities Coordinator</span></small>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<section id="services" aria-labelledby="services-heading">
+				<h2 id="services-heading">Our Services</h2>
+				<div class="services-grid">
+					<div class="card"><div class="icon">👩‍⚕️</div><div><h3>Health Monitoring</h3><p>Regular wellness checks and care coordination with families and providers.</p></div></div>
+					<div class="card"><div class="icon">🍽️</div><div><h3>Nutritious Meals</h3><p>Balanced meals and dietary accommodations prepared with love.</p></div></div>
+					<div class="card"><div class="icon">🚐</div><div><h3>Transportation</h3><p>Safe ride options to and from the center for appointments and visits.</p></div></div>
+					<div class="card"><div class="icon">🎨</div><div><h3>Recreational Activities</h3><p>Creative classes, games, and social programs tailored to interests.</p></div></div>
+					<div class="card"><div class="icon">💊</div><div><h3>Medication Assistance</h3><p>Support with medication schedules under nursing supervision.</p></div></div>
+					<div class="card"><div class="icon">🧘</div><div><h3>Gentle Exercise Programs</h3><p>Low-impact fitness and mobility routines to maintain strength and balance.</p></div></div>
+				</div>
+			</section>
+
+			<section id="activities" aria-labelledby="activities-heading">
+				<h2 id="activities-heading">Daily Activities</h2>
+				<p>Our daily schedule blends structured, therapeutic, and social activities to support cognitive, physical, and emotional well-being.</p>
+				<ul class="activities-list">
+					<li>Art classes</li>
+					<li>Music therapy</li>
+					<li>Group games</li>
+					<li>Light exercise</li>
+					<li>Social gatherings</li>
+				</ul>
+			</section>
+
+			<section id="gallery" aria-labelledby="gallery-heading">
+				<h2 id="gallery-heading">Our Center in Action</h2>
+				<div class="gallery-grid">
+					<img src="https://via.placeholder.com/400x300?text=Image+1" alt="Gallery image 1">
+					<img src="https://via.placeholder.com/400x300?text=Image+2" alt="Gallery image 2">
+					<img src="https://via.placeholder.com/400x300?text=Image+3" alt="Gallery image 3">
+					<img src="https://via.placeholder.com/400x300?text=Image+4" alt="Gallery image 4">
+					<img src="https://via.placeholder.com/400x300?text=Image+5" alt="Gallery image 5">
+					<img src="https://via.placeholder.com/400x300?text=Image+6" alt="Gallery image 6">
+				</div>
+			</section>
+
+			<section id="testimonials" aria-labelledby="testimonials-heading">
+				<h2 id="testimonials-heading">What Families Say</h2>
+				<div class="testimonials">
+					<div class="quote">
+						<p>“The staff at Golden Care have been a blessing — attentive, warm, and so respectful. My mother looks forward to each visit.”</p>
+						<small>— Karen M.</small>
+					</div>
+					<div class="quote">
+						<p>“Excellent care and engaging activities. They truly treat everyone like family.”</p>
+						<small>— Thomas B.</small>
+					</div>
+				</div>
+			</section>
+
+			<section id="contact" aria-labelledby="contact-heading">
+				<h2 id="contact-heading">Get in Touch</h2>
+				<div class="contact-grid">
+					<div class="contact-info">
+						<p><strong>Address:</strong> 123 Sunshine Lane, Yourtown, ST 12345</p>
+						<p><strong>Phone:</strong> (555) 123-4567</p>
+						<p><strong>Email:</strong> info@goldencare.example</p>
+
+						<h3 style="margin-top:10px">Send a Message</h3>
+						<form action="#" method="post" onsubmit="alert('Thank you — this form is a placeholder.');return false;">
+							<input type="text" name="name" placeholder="Your name" required>
+							<input type="email" name="email" placeholder="Your email" required>
+							<textarea name="message" placeholder="Message" required></textarea>
+							<button class="btn btn-primary" type="submit">Send Message</button>
+						</form>
+					</div>
+
+					<div class="map">
+						<iframe title="Google map placeholder" width="100%" height="100%" frameborder="0" style="border:0;min-height:260px;" src="https://maps.google.com/maps?q=40.7128,-74.0060&z=13&output=embed" allowfullscreen loading="lazy"></iframe>
+					</div>
+				</div>
+			</section>
+		</main>
+
+		<footer>
+			<div style="max-width:1100px;margin:0 auto;padding:8px 20px;">
+				<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+					<div>© 2025 Golden Care Day Center. All Rights Reserved.</div>
+					<div class="socials">
+						<a href="#" aria-label="Facebook">Facebook</a>
+						<a href="#" aria-label="Twitter">Twitter</a>
+						<a href="#" aria-label="Instagram">Instagram</a>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<script>
+		// Theme toggle: persist choice in localStorage and respect system preference
+		(function(){
+			const toggle = document.getElementById('theme-toggle');
+			const bodyEl = document.body;
+			if(!toggle) return;
+			const stored = localStorage.getItem('theme');
+			const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+			const initial = stored || (prefersDark ? 'dark' : 'light');
+			function applyTheme(t){
+				if(t === 'dark'){
+					bodyEl.classList.add('dark');
+					toggle.setAttribute('aria-pressed','true');
+					toggle.querySelector('.icon').textContent = '☀️';
+					toggle.querySelector('.label').textContent = 'Light';
+				}else{
+					bodyEl.classList.remove('dark');
+					toggle.setAttribute('aria-pressed','false');
+					toggle.querySelector('.icon').textContent = '🌙';
+					toggle.querySelector('.label').textContent = 'Dark';
+				}
+				localStorage.setItem('theme', t);
+			}
+			applyTheme(initial);
+			toggle.addEventListener('click', function(){
+				const isDark = bodyEl.classList.contains('dark');
+				applyTheme(isDark ? 'light' : 'dark');
+			});
+			// If user has not explicitly set preference, respond to system changes
+			try{
+				const mq = window.matchMedia('(prefers-color-scheme: dark)');
+				mq.addEventListener('change', e => {
+					if(!localStorage.getItem('theme')){
+						applyTheme(e.matches ? 'dark' : 'light');
+					}
+				});
+			}catch(err){/* ignore on older browsers */}
+		})();
+		</script>
+
+	</body>
+</html>
+
