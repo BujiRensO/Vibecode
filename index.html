@@ -209,9 +209,36 @@
 			.card h3{margin:0;font-size:1rem}
 			.card p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
 
-			/* Activities list */
-			.activities-list{display:flex;flex-direction:column;gap:8px}
-			.activities-list li{background:var(--pastel-green);padding:8px 12px;border-radius:10px;display:inline-block;margin:6px 6px 6px 0}
+			/* Activities section styling (cards + responsive grid) */
+			.activities{
+				padding:28px;
+				border-radius:14px;
+				background: linear-gradient(180deg, rgba(230,255,240,0.65), rgba(255,255,255,0.9));
+				text-align:center;
+			}
+			.activities .inner{max-width:920px;margin:0 auto}
+			.activities h2{margin:0 0 8px;font-size:1.6rem;background:linear-gradient(90deg,#7fb3c9,#83d3b6);-webkit-background-clip:text;background-clip:text;color:transparent}
+			.activities p{margin:0 auto;color:var(--muted);max-width:760px}
+			.activities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:18px}
+			.activity{background:#fff;padding:18px;border-radius:12px;box-shadow:0 8px 20px rgba(35,50,60,0.06);transition:transform .28s ease,box-shadow .28s ease;opacity:0;transform:translateY(12px);display:flex;align-items:flex-start;gap:12px}
+			.activity:hover{transform:translateY(-6px);box-shadow:0 12px 26px rgba(35,50,60,0.09)}
+			.activity .emoji{font-size:28px;line-height:1;padding:8px;background:var(--pastel-green);border-radius:10px;display:inline-flex;align-items:center;justify-content:center;min-width:48px;min-height:48px}
+			.activity h3{margin:0;font-size:1rem}
+			.activity p{margin:6px 0 0;color:var(--muted);font-size:.95rem}
+			/* staggered entrance */
+			@keyframes fadeUp {from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+			.activity:nth-child(1){animation:fadeUp .48s ease .06s forwards}
+			.activity:nth-child(2){animation:fadeUp .48s ease .12s forwards}
+			.activity:nth-child(3){animation:fadeUp .48s ease .18s forwards}
+			.activity:nth-child(4){animation:fadeUp .48s ease .24s forwards}
+			.activity:nth-child(5){animation:fadeUp .48s ease .30s forwards}
+			@media (max-width:600px){
+				.activities{padding:20px}
+				.activity{flex-direction:row}
+			}
+			@media (prefers-reduced-motion:reduce){
+				.activity{animation:none;opacity:1;transform:none}
+			}
 
 			/* Gallery */
 			.gallery-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
@@ -362,16 +389,48 @@
 				</div>
 			</section>
 
-			<section id="activities" aria-labelledby="activities-heading">
-				<h2 id="activities-heading">Daily Activities</h2>
-				<p>Our daily schedule blends structured, therapeutic, and social activities to support cognitive, physical, and emotional well-being.</p>
-				<ul class="activities-list">
-					<li>Art classes</li>
-					<li>Music therapy</li>
-					<li>Group games</li>
-					<li>Light exercise</li>
-					<li>Social gatherings</li>
-				</ul>
+			<section id="activities" class="activities" aria-labelledby="activities-heading">
+				<div class="inner">
+					<h2 id="activities-heading">Daily Activities</h2>
+					<p>Our daily schedule blends structured, therapeutic, and social activities to support cognitive, physical, and emotional well-being.</p>
+					<div class="activities-grid">
+						<div class="activity">
+							<div class="emoji">🎨</div>
+							<div>
+								<h3>Art classes</h3>
+								<p>Guided creative sessions to encourage expression and fine motor skills.</p>
+							</div>
+						</div>
+						<div class="activity">
+							<div class="emoji">🎵</div>
+							<div>
+								<h3>Music therapy</h3>
+								<p>Instrumental and sing-along activities that boost mood and memory.</p>
+							</div>
+						</div>
+						<div class="activity">
+							<div class="emoji">🧩</div>
+							<div>
+								<h3>Group games</h3>
+								<p>Gentle puzzles and social games designed for cognitive engagement.</p>
+							</div>
+						</div>
+						<div class="activity">
+							<div class="emoji">🧘</div>
+							<div>
+								<h3>Light exercise</h3>
+								<p>Low-impact movement and balance sessions to maintain mobility.</p>
+							</div>
+						</div>
+						<div class="activity">
+							<div class="emoji">💬</div>
+							<div>
+								<h3>Social gatherings</h3>
+								<p>Coffee chats, story time and community events to foster connection.</p>
+							</div>
+						</div>
+					</div>
+				</div>
 			</section>
 
 			<section id="gallery" aria-labelledby="gallery-heading">
